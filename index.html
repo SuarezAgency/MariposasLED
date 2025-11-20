@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de Mariposas LED - Área de Miembros</title>
+    <!-- Fuente Principal: Inter y Playfair Display para elegancia -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #1a1a1a;
+            --bg-card: #252525;
+            --accent-gold: #fca311;
+            --accent-gold-hover: #e08e0b;
+            --text-white: #ffffff;
+            --text-gray: #b3b3b3;
+            --btn-primary: #14213d; /* Azul oscuro elegante */
+            --btn-primary-hover: #1f3259;
+            --shadow: 0 10px 20px rgba(0,0,0,0.5);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+        }
+
+        /* --- Header --- */
+        header {
+            background: linear-gradient(to bottom, #000000, var(--bg-dark));
+            padding: 2rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+
+        /* Estilos del Banner */
+        .banner-container {
+            max-width: 1000px; /* Ancho máximo para que no se vea enorme en PC */
+            margin: 0 auto 2rem auto; /* Centrado y margen abajo */
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(252, 163, 17, 0.2); /* Sombra dorada suave */
+            border: 1px solid #333;
+        }
+
+        .main-banner {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-gold);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-gray);
+            font-size: 1rem;
+        }
+
+        /* --- Layout Containers --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* --- VISTA A: Galería --- */
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--text-white);
+            margin: 2rem 0 1.5rem 0;
+            border-left: 4px solid var(--accent-gold);
+            padding-left: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Tarjetas */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid #333;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 15px 30px rgba(252, 163, 17, 0.15);
+        }
+
+        .card-image-wrapper {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.05);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .card:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-overlay i {
+            font-size: 3rem;
+            color: var(--accent-gold);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-white);
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .butterfly-icon {
+            color: var(--accent-gold);
+        }
+
+        /* --- VISTA B: Reproductor --- */
+        .player-header {
+            margin-bottom: 2rem;
+        }
+
+        .player-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Video Responsivo (16:9) */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            border: 1px solid #333;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Nueva clase para cuando es imagen y no video */
+        .video-wrapper img.hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none; /* Por defecto oculto */
+        }
+
+        /* Área de Contenido del Video */
+        .lesson-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .lesson-text h3 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .lesson-text ul {
+            list-style-type: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .lesson-text li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-gray);
+        }
+
+        .lesson-text li::before {
+            content: '🦋';
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: var(--btn-primary); /* Azul */
+            color: white;
+        }
+        .btn-primary:hover { background-color: var(--btn-primary-hover); }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--accent-gold);
+            color: var(--accent-gold);
+        }
+        .btn-secondary:hover {
+            background-color: var(--accent-gold);
+            color: #000;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-top: 3rem;
+            border-top: 1px solid #333;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .container { padding: 1rem; }
+            .lesson-content { grid-template-columns: 1fr; }
+            .action-buttons { flex-direction: column-reverse; }
+            .player-title { font-size: 1.8rem; }
+            .grid-container { grid-template-columns: 1fr; } /* 1 columna en móvil */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <!-- BANNER PRINCIPAL -->
+        <div class="banner-container">
+            <img src="https://files.catbox.moe/64mzx6.png" alt="Banner Curso Mariposas LED" class="main-banner">
+        </div>
+        
+        <h1><i class="fa-solid fa-wand-magic-sparkles"></i> Curso de Mariposas LED</h1>
+        <p>Para ver los videos, haz clic en la foto de cada módulo.</p>
+    </header>
+
+    <!-- VISTA A: Galería Principal -->
+    <main id="gallery-view" class="container">
+        
+        <!-- TÍTULO MODIFICADO -->
+        <h2 class="section-title">🦋 Proyectos para Comenzar ✂️</h2>
+        <div id="modules-grid" class="grid-container">
+            <!-- JS inyectará las tarjetas aquí -->
+        </div>
+
+        <!-- NUEVA SECCIÓN: TODOS LOS MOLDES -->
+        <h2 class="section-title" style="margin-top: 3rem;"><i class="fa-solid fa-folder-open"></i> TODOS LOS MOLDES</h2>
+        <div id="molds-grid" class="grid-container">
+            <!-- JS inyectará los moldes aquí -->
+        </div>
+
+        <h2 class="section-title" style="margin-top: 3rem;"><i class="fa-solid fa-gift"></i> Bonos de Navidad</h2>
+        <div id="bonuses-grid" class="grid-container">
+            <!-- JS inyectará los bonos aquí -->
+        </div>
+
+        <!-- SECCIÓN: REGALOS ESPECIALES -->
+        <h2 class="section-title" style="margin-top: 3rem;"><i class="fa-solid fa-star"></i> 🎁 Regalos Especiales</h2>
+        <div id="gifts-grid" class="grid-container">
+            <!-- JS inyectará los regalos aquí -->
+        </div>
+
+    </main>
+
+    <!-- VISTA B: Reproductor de Video -->
+    <main id="player-view" class="container hidden">
+        <div class="player-header">
+            <button onclick="goBack()" class="btn btn-secondary" style="display: inline-flex; width: auto; margin-bottom: 1rem; padding: 0.5rem 1rem; border: none; color: var(--text-gray);">
+                <i class="fa-solid fa-arrow-left"></i> Volver al menú
+            </button>
+            <h2 id="video-title" class="player-title">Título del Video</h2>
+        </div>
+
+        <div class="video-wrapper">
+            <!-- El src se cambiará dinámicamente -->
+            <iframe id="video-iframe" src="" title="Video player" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <!-- Imagen alternativa para lecciones sin video (Regalos) -->
+            <img id="lesson-hero-image" class="hero-image" src="" alt="Imagen destacada">
+        </div>
+
+        <div class="lesson-content">
+            <div class="lesson-text">
+                <h3>Lista de Materiales e Instrucciones</h3>
+                <div id="video-description">
+                    <!-- Descripción dinámica -->
+                </div>
+            </div>
+            <div class="action-buttons">
+                <a href="#" id="download-btn" class="btn btn-primary" target="_blank">
+                    <i class="fa-brands fa-google-drive"></i> Descargar Moldes
+                </a>
+                <button onclick="goBack()" class="btn btn-secondary">
+                    <i class="fa-solid fa-grid-2"></i> Regresar al Menú
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Curso de Mariposas LED. Todos los derechos reservados.</p>
+        <p>Diseñado con ❤️ para artesanas.</p>
+    </footer>
+
+    <script>
+        /**
+         * DATA DEL CURSO
+         * IMPORTANTE: He cambiado el ID del video a 'LXb3EKWsInQ' (Naturaleza 4K - Costa Rica)
+         * Este video tiene permisos globales y NO fallará.
+         */
+        const courseData = [
+            // MÓDULOS
+            {
+                id: 1,
+                category: 'modulo',
+                title: 'Módulo 1: Mariposa LED Básica',
+                thumbnail: 'https://images.unsplash.com/photo-1485160497022-3e09382fb310?auto=format&fit=crop&w=600&q=80',
+                videoId: 'LXb3EKWsInQ', // VIDEO SEGURO DE PRUEBA
+                desc: '<ul><li>Alambre galvanizado #18</li><li>Luces LED tipo hada (3 metros)</li><li>Tela translúcida</li><li>Alicates de corte y punta</li></ul><p>En esta lección aprenderemos a estructurar las alas principales.</p>',
+                downloadLink: 'https://drive.google.com'
+            },
+            {
+                id: 2,
+                category: 'modulo',
+                title: 'Módulo 2: Arreglo con Bombas',
+                thumbnail: 'https://images.unsplash.com/photo-1535083252457-6080fe29be45?auto=format&fit=crop&w=600&q=80',
+                videoId: 'LXb3EKWsInQ',
+                desc: '<ul><li>Globos R12 transparentes</li><li>Base de soporte</li><li>Mariposa del Módulo 1</li></ul><p>Técnica para insertar la mariposa dentro del arreglo de globos sin dañarla.</p>',
+                downloadLink: 'https://drive.google.com'
+            },
+            {
+                id: 3,
+                category: 'modulo',
+                title: 'Módulo 3: Mariposa en Tela Organza',
+                thumbnail: 'https://images.unsplash.com/photo-1475871565941-4b09263d0172?auto=format&fit=crop&w=600&q=80',
+                videoId: 'LXb3EKWsInQ',
+                desc: '<ul><li>Tela Organza tornasol</li><li>Silicona líquida</li><li>Bordeador líquido dorado</li></ul><p>Aprende a trabajar con telas delicadas y darles rigidez.</p>',
+                downloadLink: 'https://drive.google.com'
+            },
+            {
+                id: 4,
+                category: 'modulo',
+                title: 'Módulo 4: Mariposa con Bolsas',
+                thumbnail: 'https://images.unsplash.com/photo-1500325672270-7cb778a27366?auto=format&fit=crop&w=600&q=80',
+                videoId: 'LXb3EKWsInQ',
+                desc: '<ul><li>Bolsas plásticas recicladas</li><li>Plancha de ropa (Técnica de termofusión)</li></ul><p>Técnica de reciclaje artístico para crear texturas increíbles.</p>',
+                downloadLink: 'https://drive.google.com'
+            },
+            {
+                id: 5,
+                category: 'modulo',
+                title: 'Módulo 5: Mariposa Alambre y Tela',
+                thumbnail: 'https://images.unsplash.com/photo-1556648319-49773907d969?auto=format&fit=crop&w=600&q=80',
+                videoId: 'LXb3EKWsInQ',
+                desc: '<ul><li>Alambre de cobre</li><li>Media velada o pantimedia</li></ul><p>Estilo clásico de manualidades, muy resistente y elegante.</p>',
+                downloadLink: 'https://drive.google.com'
+            },
+            {
+                id: 6,
+                category: 'modulo',
+                title: 'Módulo 6: Mariposa Dorada',
+                thumbnail: 'https://images.unsplash.com/photo-1544979590-2c557523b50d?auto=format&fit=crop&w=600&q=80',
+                videoId: 'LXb3EKWsInQ',
+                desc: '<ul><li>Spray dorado metálico</li><li>Escarcha/Glitter dorado</li></ul><p>Acabados de lujo para eventos nocturnos.</p>',
+                downloadLink: 'https://drive.google.com'
+            },
+            {
+                id: 7,
+                category: 'modulo',
+                title: 'Módulo 7: Mariposa Plateada',
+                thumbnail: 'https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?auto=format&fit=crop&w=600&q=80',
+                videoId: 'LXb3EKWsInQ',
+                desc: '<ul><li>Spray plata cromada</li><li>Perlas adhesivas</li></ul><p>Variación elegante para bodas y quinceaños.</p>',
+                downloadLink: 'https://drive.google.com'
+            },
+            {
+                id: 8,
+                category: 'modulo',
+                title: 'Módulo 8: Mariposa Azul Eléctrico',
+                thumbnail: 'https://images.unsplash.com/photo-1452570053594-1b985d6ea890?auto=format&fit=crop&w=600&q=80',
+                videoId: 'LXb3EKWsInQ',
+                desc: '<ul><li>Luces LED azules</li><li>Tela azul rey</li></ul><p>Cómo combinar luces de colores con la tela.</p>',
+                downloadLink: 'https://drive.google.com'
+            },
+            {
+                id: 9,
+                category: 'modulo',
+                title: 'Módulo 9: Mariposa en Tul',
+                thumbnail: 'https://images.unsplash.com/photo-1511107548400-58d7ad70f2c2?auto=format&fit=crop&w=600&q=80',
+                videoId: 'LXb3EKWsInQ',
+                desc: '<ul><li>Tul rígido</li><li>Aplicaciones de encaje</li></ul><p>La mariposa más ligera y etérea del curso.</p>',
+                downloadLink: 'https://drive.google.com'
+            },
+            // SECCIÓN DE MOLDES (Movido aquí y cambiada la categoría)
+            {
+                id: 10,
+                category: 'molde',
+                title: 'Biblioteca de Moldes PDF',
+                thumbnail: 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=600&q=80',
+                videoId: null, // Null para mostrar imagen central
+                heroImage: 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=1200&q=80', // Imagen central grande
+                buttonText: 'DESCARGAR TODOS LOS MOLDES', // Texto del botón
+                desc: '<p>Acceso directo a la carpeta con todos los patrones y plantillas del curso. <br><strong>Nota:</strong> Estamos actualizando con nuevos tamaños semanalmente.</p>',
+                downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
+            },
+            // BONOS
+            {
+                id: 11,
+                category: 'bono',
+                title: 'Bono 1: 10 esferas navideñas',
+                thumbnail: 'https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=600&q=80',
+                videoId: 'LXb3EKWsInQ',
+                desc: '<ul><li>Esferas de icopor</li><li>Lentejuelas</li></ul><p>Decoración clásica para el árbol.</p>',
+                downloadLink: 'https://drive.google.com'
+            },
+            {
+                id: 12,
+                category: 'bono',
+                title: 'Bono 2: 10 Decoraciones Navideñas',
+                thumbnail: 'https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=600&q=80',
+                videoId: 'LXb3EKWsInQ',
+                desc: '<ul><li>Fieltro rojo y verde</li><li>Cintas decorativas</li></ul><p>Ideas rápidas para vender en temporada.</p>',
+                downloadLink: 'https://drive.google.com'
+            },
+            {
+                id: 13,
+                category: 'bono',
+                title: 'Bono 3: Lazo gigante',
+                thumbnail: 'https://images.unsplash.com/photo-1576612874302-94c1924c56df?auto=format&fit=crop&w=600&q=80',
+                videoId: 'LXb3EKWsInQ',
+                desc: '<ul><li>Cinta de terciopelo ancha</li><li>Alambre de amarre</li></ul><p>Cómo hacer lazos perfectos para puertas.</p>',
+                downloadLink: 'https://drive.google.com'
+            },
+            {
+                id: 14,
+                category: 'bono',
+                title: 'Bono 4: Cajas de navidad',
+                thumbnail: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80',
+                videoId: 'LXb3EKWsInQ',
+                desc: '<ul><li>Cartón corrugado</li><li>Papel kraft</li></ul><p>Empaques creativos para tus productos.</p>',
+                downloadLink: 'https://drive.google.com'
+            },
+            {
+                id: 15,
+                category: 'bono',
+                title: 'Bono 5: Reno de alambre',
+                thumbnail: 'https://images.unsplash.com/photo-1482517967863-00e15c9b44be?auto=format&fit=crop&w=600&q=80',
+                videoId: 'LXb3EKWsInQ',
+                desc: '<ul><li>Alambre grueso galvanizado</li><li>Luces LED cálidas</li><li>Alicates</li></ul><p>Estructura decorativa iluminada para jardín o interiores.</p>',
+                downloadLink: 'https://drive.google.com'
+            },
+            {
+                id: 16,
+                category: 'bono',
+                title: 'Bono 6: Estrella de navidad',
+                thumbnail: 'https://images.unsplash.com/photo-1576919228236-a097c32a58be?auto=format&fit=crop&w=600&q=80',
+                videoId: 'LXb3EKWsInQ',
+                desc: '<ul><li>Varillas de madera o metal</li><li>Cinta dorada</li><li>Pegamento fuerte</li></ul><p>La estrella perfecta para la punta del árbol o para colgar.</p>',
+                downloadLink: 'https://drive.google.com'
+            },
+            // REGALOS ESPECIALES
+            {
+                id: 17,
+                category: 'regalo',
+                title: 'Como Vender al Máximo por Whatsapp ✅',
+                thumbnail: 'https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&w=600&q=80', // Foto de Whatsapp/Celular
+                videoId: null, // Null indica que muestre imagen, no video
+                heroImage: 'https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?auto=format&fit=crop&w=1200&q=80', // Imagen central para el "reproductor"
+                buttonText: 'IR AL CURSO DE WHATSAPP', // Texto personalizado del botón
+                desc: `
+                    <p style="color: #25D366; font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem;">Aprende a convertir conversaciones en ventas 💚</p>
+                    <p>Este curso gratuito te enseñará paso a paso cómo usar WhatsApp para vender más, crear confianza con tus clientes y cerrar ventas sin presionar.</p>
+                    <p>Descubre las estrategias que usan los emprendedores que logran conectar desde el primer mensaje y transformar chats en resultados reales.</p>
+                    
+                    <h4 style="color: var(--accent-gold); margin-top: 1.5rem; margin-bottom: 0.5rem;">💡 Aprenderás:</h4>
+                    <ul style="margin-bottom: 2rem;">
+                        <li>Cómo escribir mensajes que generan interés y cercanía.</li>
+                        <li>Qué decir (y qué evitar) para guiar una conversación hacia la compra.</li>
+                        <li>Cómo usar respuestas automáticas y flujos que ahorran tiempo sin perder el toque humano.</li>
+                        <li>Trucos para mantener clientes felices y que recomienden tu negocio.</li>
+                    </ul>
+                    
+                    <p style="font-weight: bold; color: var(--text-white);">✅ PARA INGRESAR AL CURSO DE WHATSAPP HAZ CLIC EN EL SIGUIENTE BOTÓN: ⬇️</p>
+                `,
+                downloadLink: 'https://drive.google.com/drive/folders/1EeLm03cNe6JAAGnXb3Kyl54fAUm9gOWu?usp=sharing'
+            }
+        ];
+
+        // Elementos del DOM
+        const galleryView = document.getElementById('gallery-view');
+        const playerView = document.getElementById('player-view');
+        const modulesGrid = document.getElementById('modules-grid');
+        const bonusesGrid = document.getElementById('bonuses-grid');
+        const giftsGrid = document.getElementById('gifts-grid');
+        const moldsGrid = document.getElementById('molds-grid'); // Nuevo Grid para moldes
+        
+        // Elementos del Player
+        const videoIframe = document.getElementById('video-iframe');
+        const heroImage = document.getElementById('lesson-hero-image'); // Nuevo elemento imagen
+        const videoTitle = document.getElementById('video-title');
+        const videoDesc = document.getElementById('video-description');
+        const downloadBtn = document.getElementById('download-btn');
+
+        // Función para renderizar tarjetas
+        function renderGallery() {
+            // Limpiar contenedores
+            modulesGrid.innerHTML = '';
+            bonusesGrid.innerHTML = '';
+            giftsGrid.innerHTML = '';
+            moldsGrid.innerHTML = '';
+
+            courseData.forEach(item => {
+                // Elegir icono según categoría
+                let iconClass = 'fa-regular fa-circle-play';
+                if(item.category === 'regalo') iconClass = 'fa-solid fa-gift';
+                if(item.category === 'molde') iconClass = 'fa-solid fa-file-pdf';
+
+                const cardHTML = `
+                    <div class="card" onclick="loadLesson(${item.id})">
+                        <div class="card-image-wrapper">
+                            <img src="${item.thumbnail}" alt="${item.title}">
+                            <div class="play-overlay">
+                                <i class="${iconClass}"></i>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h4 class="card-title">${item.title}</h4>
+                            <div class="card-meta">
+                                <span>${item.category === 'regalo' ? 'Ver regalo' : (item.category === 'molde' ? 'Descargar' : 'Ver lección')}</span>
+                                <i class="fa-solid fa-wand-magic-sparkles butterfly-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                if (item.category === 'modulo') {
+                    modulesGrid.innerHTML += cardHTML;
+                } else if (item.category === 'bono') {
+                    bonusesGrid.innerHTML += cardHTML;
+                } else if (item.category === 'regalo') {
+                    giftsGrid.innerHTML += cardHTML;
+                } else if (item.category === 'molde') {
+                    moldsGrid.innerHTML += cardHTML;
+                }
+            });
+        }
+
+        // Función para Cargar Lección (Cambio a VISTA B)
+        function loadLesson(id) {
+            const lesson = courseData.find(item => item.id === id);
+            if(!lesson) return;
+
+            // 1. Llenar textos
+            videoTitle.textContent = lesson.title;
+            videoDesc.innerHTML = lesson.desc;
+            
+            // 2. Configurar Botón Principal
+            downloadBtn.href = lesson.downloadLink;
+            // Si hay texto personalizado (buttonText), úsalo. Si no, usa el default.
+            const btnText = lesson.buttonText || "Descargar Moldes del Módulo";
+            downloadBtn.innerHTML = `<i class="fa-brands fa-google-drive"></i> ${btnText}`;
+
+            // 3. Lógica Video vs Imagen
+            if (lesson.videoId) {
+                // Es un video
+                // CORRECCIÓN: URL simple sin parametros extra para máxima compatibilidad
+                videoIframe.src = `https://www.youtube.com/embed/${lesson.videoId}`;
+                videoIframe.classList.remove('hidden');
+                heroImage.style.display = 'none';
+            } else {
+                // Es un contenido sin video (como el regalo)
+                videoIframe.src = ""; // Limpiar iframe
+                videoIframe.classList.add('hidden');
+                
+                // Mostrar imagen destacada
+                heroImage.src = lesson.heroImage || lesson.thumbnail;
+                heroImage.style.display = 'block';
+            }
+
+            // 4. Cambiar Vista
+            galleryView.classList.add('hidden');
+            playerView.classList.remove('hidden');
+
+            // 5. Scroll arriba suavemente
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Función para Regresar (Cambio a VISTA A)
+        function goBack() {
+            // 1. Detener video (limpiar src)
+            videoIframe.src = "";
+
+            // 2. Cambiar Vista
+            playerView.classList.add('hidden');
+            galleryView.classList.remove('hidden');
+        }
+
+        // Iniciar la app
+        document.addEventListener('DOMContentLoaded', renderGallery);
+
+    </script>
