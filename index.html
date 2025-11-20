@@ -223,6 +223,17 @@
             object-fit: cover;
             display: none; /* Por defecto oculto */
         }
+        
+        /* Nuevo estilo para reproductor nativo MP4 */
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            display: none;
+        }
 
         /* Área de Contenido del Video */
         .lesson-content {
@@ -368,15 +379,16 @@
         </div>
 
         <div class="video-wrapper">
-            <!-- El src se cambiará dinámicamente -->
+            <!-- Reproductor Youtube -->
             <iframe id="video-iframe" src="" title="Video player" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <!-- Reproductor Nativo (MP4) -->
+            <video id="native-video" controls></video>
             <!-- Imagen alternativa para lecciones sin video (Regalos) -->
             <img id="lesson-hero-image" class="hero-image" src="" alt="Imagen destacada">
         </div>
 
         <div class="lesson-content">
             <div class="lesson-text">
-                <h3>Lista de Materiales e Instrucciones</h3>
                 <div id="video-description">
                     <!-- Descripción dinámica -->
                 </div>
@@ -393,15 +405,14 @@
     </main>
 
     <footer>
-        <p>&copy; 2024 Curso de Mariposas LED. Todos los derechos reservados.</p>
+        <p>&copy; 2025 Curso de Mariposas LED. Todos los derechos reservados.</p>
         <p>Diseñado con ❤️ para artesanas.</p>
     </footer>
 
     <script>
         /**
          * DATA DEL CURSO
-         * IMPORTANTE: He cambiado el ID del video a 'LXb3EKWsInQ' (Naturaleza 4K - Costa Rica)
-         * Este video tiene permisos globales y NO fallará.
+         * IMPORTANTE: IDs de video de YouTube, enlaces de descarga y ahora IMÁGENES personalizadas.
          */
         const courseData = [
             // MÓDULOS
@@ -409,91 +420,363 @@
                 id: 1,
                 category: 'modulo',
                 title: 'Módulo 1: Mariposa LED Básica',
-                thumbnail: 'https://images.unsplash.com/photo-1485160497022-3e09382fb310?auto=format&fit=crop&w=600&q=80',
-                videoId: 'LXb3EKWsInQ', // VIDEO SEGURO DE PRUEBA
-                desc: '<ul><li>Alambre galvanizado #18</li><li>Luces LED tipo hada (3 metros)</li><li>Tela translúcida</li><li>Alicates de corte y punta</li></ul><p>En esta lección aprenderemos a estructurar las alas principales.</p>',
-                downloadLink: 'https://drive.google.com'
+                thumbnail: 'https://files.catbox.moe/7f95q9.png', // IMAGEN PERSONALIZADA
+                videoId: 'LXb3EKWsInQ',
+                desc: `
+                    <h3>Lista de Materiales</h3>
+                    <ul>
+                        <li><strong>Cartulina o cartón:</strong> 1 pliego (o una caja de cartón).</li>
+                        <li><strong>Tela de tul con lentejuelas:</strong> 1 metro.</li>
+                        <li><strong>Cinta LED o Cinta Neon Flex:</strong> La cantidad necesaria (medir contorno).</li>
+                        <li><strong>Conector:</strong> 1 (para la cinta).</li>
+                        <li><strong>Silicona en barra y Pistola.</strong></li>
+                        <li><strong>Alambre dulce:</strong> El más grueso necesario.</li>
+                        <li><strong>Alambre superdelgado:</strong> Un poco (para sujetar).</li>
+                        <li><strong>Tirillas decorativas y Correas:</strong> Opcionales.</li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">Procedimiento Paso a Paso</h3>
+                    
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">Paso 1: Dibujar y Determinar el Tamaño</h4>
+                    <p>Dibuja o transfiere el molde a la cartulina. Define las dimensiones (ej. 45 cm de alto) y mide el contorno para saber cuántos metros de cinta necesitarás.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">Paso 2: Crear la Estructura de Alambre</h4>
+                    <p>Dobla el alambre dulce guiándote por el dibujo. Ajusta la figura con alambre pequeño, crea un gancho central y ponle peso para estabilizar y nivelar.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">Paso 3: Preparar el Borde de Cartón</h4>
+                    <p>Corta tiras de cartón del grosor de la cinta LED y forra completamente la estructura de alambre con ellas usando silicona.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">Paso 4: Colocar la Cinta LED/Neon Flex</h4>
+                    <p>Pega la cinta al borde interior (si es LED) o de frente (si es Neon Flex). Asegura el cable con alambre delgado o correas pequeñas.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">Paso 5: Colocar la Tela de Tul</h4>
+                    <p>Corta el tul con lentejuelas y forra las alas, pegando la tela con silicona al borde de la estructura.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">Paso 6: Detalles Finales y Acabado</h4>
+                    <p>Pega tirillas decorativas en el borde exterior para esconder cables y uniones. Añade antenas (opcional) y conecta la luz.</p>
+                `,
+                downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
             },
             {
                 id: 2,
                 category: 'modulo',
                 title: 'Módulo 2: Arreglo con Bombas',
-                thumbnail: 'https://images.unsplash.com/photo-1535083252457-6080fe29be45?auto=format&fit=crop&w=600&q=80',
-                videoId: 'LXb3EKWsInQ',
-                desc: '<ul><li>Globos R12 transparentes</li><li>Base de soporte</li><li>Mariposa del Módulo 1</li></ul><p>Técnica para insertar la mariposa dentro del arreglo de globos sin dañarla.</p>',
-                downloadLink: 'https://drive.google.com'
+                thumbnail: 'https://files.catbox.moe/j6i2t6.png', // IMAGEN PERSONALIZADA
+                videoId: 'jaVDGJZSYnM',
+                desc: `
+                    <h3>Lista de Materiales</h3>
+                    <ul>
+                        <li><strong>Mariposas LED:</strong> Dos unidades (60x120 cm y 80x130 cm).</li>
+                        <li><strong>Globos Número 12:</strong> Lila pastel y plateado cromado.</li>
+                        <li><strong>Inflador:</strong> Eléctrico.</li>
+                        <li><strong>Calibradores:</strong> Medidas 10, 8, 7 y 6.</li>
+                        <li><strong>Ligas:</strong> Para asegurar globos y apliques.</li>
+                        <li><strong>Flores:</strong> Ramos artificiales y flores colgantes (lila pastel).</li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">Procedimiento Paso a Paso</h3>
+                    
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">A. Preparación de los Globos</h4>
+                    <p>Infla y calibra los globos (10, 8, 7, 6). Boléalos para redondear, forma dúos anudando boquillas y une dos dúos para crear cuartetos.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">B. Instalación en las Mariposas</h4>
+                    <p><strong>Mariposa Pequeña:</strong> Usa 2 cuartetos por cada calibre (10, 8, 7, 6), alternando colores.</p>
+                    <p><strong>Mariposa Grande:</strong> Inicia con 2 cuartetos #10 y 2 cuartetos #8. Deja 40cm de espacio vacío. Finaliza con 1 cuarteto #7 y 1 cuarteto #6.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">C. Colocación de Apliques y Flores</h4>
+                    <p>Crea apliques con globos pequeños y fíjalos con ligas. Para las flores, protege los tallos con un globo antes de insertar en los espacios vacíos o en la base.</p>
+                `,
+                downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
             },
             {
                 id: 3,
                 category: 'modulo',
-                title: 'Módulo 3: Mariposa en Tela Organza',
-                thumbnail: 'https://images.unsplash.com/photo-1475871565941-4b09263d0172?auto=format&fit=crop&w=600&q=80',
-                videoId: 'LXb3EKWsInQ',
-                desc: '<ul><li>Tela Organza tornasol</li><li>Silicona líquida</li><li>Bordeador líquido dorado</li></ul><p>Aprende a trabajar con telas delicadas y darles rigidez.</p>',
-                downloadLink: 'https://drive.google.com'
+                title: 'Módulo 3: Mariposa en Tela de Organza',
+                thumbnail: 'https://files.catbox.moe/00d4ev.png', // IMAGEN PERSONALIZADA
+                videoId: '41V08lPysQw',
+                desc: `
+                    <h3>Lista de Materiales</h3>
+                    <ul>
+                        <li><strong>Tela de organza:</strong> Color deseado (video usa blanco).</li>
+                        <li><strong>Moldes de mariposa:</strong> Alas superiores e inferiores (varios tamaños).</li>
+                        <li><strong>Tiza de modistería y Alfileres.</strong></li>
+                        <li><strong>Alambre floral:</strong> Calibre 22 (para el contorno).</li>
+                        <li><strong>Silicona caliente y Pegante blanco escolar.</strong></li>
+                        <li><strong>Escarchas:</strong> Gruesa (estructura) y fina (borde).</li>
+                        <li><strong>Perlas blancas:</strong> Varios tamaños para cuerpo y antenas.</li>
+                        <li><strong>Cinta floral y Amarres (bridas).</strong></li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">Procedimiento Paso a Paso</h3>
+                    
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">1. Preparación y Corte</h4>
+                    <p>Dobla la tela en 4 capas, fija el molde con alfileres y corta. ¡Voltea el molde para las alas opuestas!</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">2. Pegado de Alambres</h4>
+                    <p>Pega 4 alambres florales sobre el borde del ala con silicona. Únelos en la punta dejando un excedente.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">3. Decoración con Escarcha</h4>
+                    <p>Aplica pegante y escarcha gruesa sobre los alambres. Al secar, define el borde exterior con escarcha fina.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">4. Creación del Cuerpo</h4>
+                    <p>Ensarta perlas en alambre doble (pequeñas, grandes, pequeña). Añade perlas diminutas para las antenas.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">5. Ensamblaje</h4>
+                    <p>Une las piezas de las alas y fórralas con cinta floral. Une las mitades con un amarre fuerte en la base.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">6. Fijación Final</h4>
+                    <p>Pega el cuerpo con abundante silicona. Acomoda las alas para dar movimiento natural y ajusta las antenas.</p>
+                `,
+                downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
             },
             {
                 id: 4,
                 category: 'modulo',
                 title: 'Módulo 4: Mariposa con Bolsas',
-                thumbnail: 'https://images.unsplash.com/photo-1500325672270-7cb778a27366?auto=format&fit=crop&w=600&q=80',
-                videoId: 'LXb3EKWsInQ',
-                desc: '<ul><li>Bolsas plásticas recicladas</li><li>Plancha de ropa (Técnica de termofusión)</li></ul><p>Técnica de reciclaje artístico para crear texturas increíbles.</p>',
-                downloadLink: 'https://drive.google.com'
+                thumbnail: 'https://files.catbox.moe/7cazpc.png', // IMAGEN PERSONALIZADA
+                videoId: 'EApUFwRkC7U',
+                desc: `
+                    <h3>Lista de Materiales</h3>
+                    <ul>
+                        <li><strong>Bolsas de plástico:</strong> Transparentes/semitransparentes, limpias (aprox. 40x25 cm).</li>
+                        <li><strong>Plancha de ropa:</strong> Para plastificar.</li>
+                        <li><strong>Alambre delgado flexible:</strong> Calibre 20.</li>
+                        <li><strong>Silicón caliente y pistola.</strong></li>
+                        <li><strong>Imagen/Molde:</strong> Dividido en parte superior e inferior.</li>
+                        <li><strong>Bolígrafo, Cartón y Hojas blancas</strong> (protección).</li>
+                        <li><strong>Opcionales:</strong> Cordón decorativo (cola de rata), perlas, gemas, anilla de lata.</li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">Procedimiento Paso a Paso</h3>
+                    
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">1. Preparación (Plastificado)</h4>
+                    <p>Limpia las bolsas. Plánchalas sobre cartón protegido con hojas blancas, aumentando la temperatura hasta que se plastifiquen y arruguen.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">2. Corte de Alas y Cuerpo</h4>
+                    <p>Delinea el molde sobre el plástico. Corta 2 piezas superiores y 2 inferiores (incluyendo cuerpo central). Corta por dentro de la línea.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">3. Estructura de Alambre</h4>
+                    <p>Corta 6 tramos de alambre (3 sup/3 inf), fórralos con tiras de la misma bolsa y pégalos a las piezas de las alas.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">4. Antenas y Decoración</h4>
+                    <p>Crea antenas con alambre forrado y perlas. Decora bordes con cola de rata, añade perlas al cuerpo y gemas para los ojos.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">5. Ensamblaje Final</h4>
+                    <p>Une las alas inferiores, pega las antenas y luego las alas superiores. Delimita el cuerpo con cordón y pega la anilla trasera para colgar.</p>
+                `,
+                downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
             },
             {
                 id: 5,
                 category: 'modulo',
                 title: 'Módulo 5: Mariposa Alambre y Tela',
-                thumbnail: 'https://images.unsplash.com/photo-1556648319-49773907d969?auto=format&fit=crop&w=600&q=80',
-                videoId: 'LXb3EKWsInQ',
-                desc: '<ul><li>Alambre de cobre</li><li>Media velada o pantimedia</li></ul><p>Estilo clásico de manualidades, muy resistente y elegante.</p>',
-                downloadLink: 'https://drive.google.com'
+                thumbnail: 'https://files.catbox.moe/pe07k6.png', // IMAGEN PERSONALIZADA
+                videoId: 'Fl-blNGrhiU',
+                desc: `
+                    <h3>Lista de Materiales</h3>
+                    <ul>
+                        <li><strong>Imagen/Molde:</strong> Impresa para guía.</li>
+                        <li><strong>Alambre:</strong> Dulce o galvanizado.</li>
+                        <li><strong>Tela:</strong> Tul, organza o con lentejuelas.</li>
+                        <li><strong>Herramientas:</strong> Pinzas (corte/agarre), Silicón frío.</li>
+                        <li><strong>Decoración:</strong> Cordón decorativo, Cinta papel/Floratape, Perlas.</li>
+                        <li><strong>Base:</strong> Madera, Pintura blanca, Barniz, Grapas.</li>
+                        <li><strong>Extras:</strong> Flores artificiales, Marcador.</li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">Procedimiento Paso a Paso</h3>
+                    
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">1. Estructura de Alambre</h4>
+                    <p>Delinea el alambre sobre el molde, forma las 4 alas individualmente y únelas con alambre delgado ajustando bien.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">2. Pegar Tela y Recortar</h4>
+                    <p>Pega la tela con silicón frío sobre el alambre. Opción de doble capa para más cuerpo. Recorta el excedente.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">3. Acabados y Contornos</h4>
+                    <p>Forra la unión central con cinta. Pega el cordón decorativo sobre el alambre del contorno para una mejor terminación.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">4. El Cuerpo</h4>
+                    <p>Crea el cuerpo con perlas en un alambre. Montalo sobre una base cilíndrica de tela y fíjalo al centro de la mariposa.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">5. Base de Presentación</h4>
+                    <p>Pinta y barniza la base de madera. Fija la mariposa con grapas y decora alrededor con flores artificiales.</p>
+                `,
+                downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
             },
             {
                 id: 6,
                 category: 'modulo',
                 title: 'Módulo 6: Mariposa Dorada',
-                thumbnail: 'https://images.unsplash.com/photo-1544979590-2c557523b50d?auto=format&fit=crop&w=600&q=80',
-                videoId: 'LXb3EKWsInQ',
-                desc: '<ul><li>Spray dorado metálico</li><li>Escarcha/Glitter dorado</li></ul><p>Acabados de lujo para eventos nocturnos.</p>',
-                downloadLink: 'https://drive.google.com'
+                thumbnail: 'https://files.catbox.moe/e0b1gy.png', // IMAGEN PERSONALIZADA
+                videoId: 'uosWYyZ-1II',
+                desc: `
+                    <h3>Lista de Materiales</h3>
+                    <ul>
+                        <li><strong>Cartulina Brillante/Glitter:</strong> Para las alas (2 sets).</li>
+                        <li><strong>Pali Globos (varillas):</strong> Medidas: 19, 28, 26, 23, 14, 17, 17, 16, 11 cm.</li>
+                        <li><strong>Alambre Galvanizado #18:</strong> Refuerzo interno varillas.</li>
+                        <li><strong>Cucharas de Plástico:</strong> Para cuerpo y flores.</li>
+                        <li><strong>Pintura Spray Dorada:</strong> Acabado metálico.</li>
+                        <li><strong>Decoración:</strong> Perlas (ojos), Piedras acrílicas/Diamantes.</li>
+                        <li><strong>Opcional:</strong> Luces LED a pilas.</li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">Procedimiento Paso a Paso</h3>
+                    
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">1. Preparación de Estructura</h4>
+                    <p>Corta los pali globos en las medidas indicadas y refuerza cada uno insertando alambre galvanizado sellado con silicona.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">2. Ensamblaje de Alas</h4>
+                    <p>Pega las varillas sobre la cartulina siguiendo el molde. Une capa superior (ancha) con fondo (fina). Une ambas alas y añade gancho.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">3. Cuerpo y Flores de Cuchara</h4>
+                    <p>Crea el cuerpo pegando cucharas recortadas (cabeza, centro, cola). Añade ojos de perla y antenas. Crea flores pequeñas con "pétalos" de cuchara.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">4. Pintura y Decoración</h4>
+                    <p>Pinta cuerpo y flores con spray dorado. Fija el cuerpo al centro. Decora varillas con piedras acrílicas. Opcional: Pega luces LED detrás.</p>
+                `,
+                downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
             },
             {
                 id: 7,
                 category: 'modulo',
                 title: 'Módulo 7: Mariposa Plateada',
-                thumbnail: 'https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13?auto=format&fit=crop&w=600&q=80',
-                videoId: 'LXb3EKWsInQ',
-                desc: '<ul><li>Spray plata cromada</li><li>Perlas adhesivas</li></ul><p>Variación elegante para bodas y quinceaños.</p>',
-                downloadLink: 'https://drive.google.com'
+                thumbnail: 'https://files.catbox.moe/0df37u.png', // IMAGEN PERSONALIZADA
+                videoId: 'fsx4_BuGExk',
+                desc: `
+                    <h3>Lista de Materiales</h3>
+                    <ul>
+                        <li><strong>Cartón:</strong> Para molde inicial.</li>
+                        <li><strong>Cartulina Corrugada:</strong> Plateada (capa base).</li>
+                        <li><strong>Cartulina Espejo:</strong> Capa superior y diseño interno.</li>
+                        <li><strong>Alambre Galvanizado #18:</strong> Marco decorativo y gancho.</li>
+                        <li><strong>Silicona y Pintura Aerosol:</strong> Cromo/Plateado.</li>
+                        <li><strong>Decoración:</strong> Piedras acrílicas (gota/tiras) y piedras pequeñas.</li>
+                        <li><strong>Alambre delgado:</strong> Para cuerpo y gancho.</li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">Procedimiento Paso a Paso</h3>
+                    
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">1. Creación de Alas (Capas)</h4>
+                    <p>Corta la base en cartulina corrugada usando el molde. Corta la capa superior en cartulina espejo (1 cm más pequeña) y crea un diseño interno tipo vitral pegándolo sobre la base.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">2. Marco de Alambre</h4>
+                    <p>Corta y retuerce el alambre #18 para darle textura. Moldéalo a la silueta, pégalo al borde y rellena el interior del marco con silicona para dar volumen.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">3. Cuerpo y Antenas</h4>
+                    <p>Corta el cuerpo en cartón (doble capa), píntalo cromo/plateado. Añade antenas con puntas de silicona y fija un gancho trasero con alambre.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">4. Decoración Final</h4>
+                    <p>Crea flores con piedras en forma de gota. Pega la decoración aprovechando el marco de alambre. Fija el cuerpo al centro y ¡lista para colgar!</p>
+                `,
+                downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
             },
             {
                 id: 8,
                 category: 'modulo',
-                title: 'Módulo 8: Mariposa Azul Eléctrico',
-                thumbnail: 'https://images.unsplash.com/photo-1452570053594-1b985d6ea890?auto=format&fit=crop&w=600&q=80',
-                videoId: 'LXb3EKWsInQ',
-                desc: '<ul><li>Luces LED azules</li><li>Tela azul rey</li></ul><p>Cómo combinar luces de colores con la tela.</p>',
-                downloadLink: 'https://drive.google.com'
+                title: 'Módulo 8: Mariposa Azul',
+                thumbnail: 'https://files.catbox.moe/6wulaa.png', // IMAGEN PERSONALIZADA
+                videoId: 'RkAZ2YUNmWw',
+                desc: `
+                    <h3>Lista de Materiales</h3>
+                    <ul>
+                        <li><strong>Acetato/Micas:</strong> Transparente (reciclado).</li>
+                        <li><strong>Pali Globos/Base:</strong> Estructura del marco.</li>
+                        <li><strong>Alambre Galvanizado:</strong> Refuerzo interno.</li>
+                        <li><strong>Barniz Vitral (Casero):</strong> Con tinta azul para pintar el acetato.</li>
+                        <li><strong>Pintura Acrílica:</strong> Dorado metálico (delineado).</li>
+                        <li><strong>Cucharas Plásticas:</strong> Grandes, para el cuerpo.</li>
+                        <li><strong>Luces LED:</strong> A pilas (Azul).</li>
+                        <li><strong>Decoración:</strong> Piedras acrílicas #18, Perlas.</li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">Procedimiento Paso a Paso</h3>
+                    
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">1. Estructura con Pali Globos</h4>
+                    <p>Mide y corta los pali globos (con 3cm extra). Refuérzalos con alambre, dales forma curva y une el marco exterior e interior. Añade divisiones internas.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">2. Alas de Acetato</h4>
+                    <p>Corta el acetato sobre la forma. Delinea patrones con pintura dorada. Pinta el reverso con barniz vitral azul para dar color y brillo.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">3. Cuerpo de Cucharas</h4>
+                    <p>Une 3 cucharas para formar el cuerpo (invierte la cabeza). Refuerza con silicona, añade antenas con perlas y pinta de dorado. Agrega gancho trasero.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">4. Decoración y Luces</h4>
+                    <p>Fija el cuerpo al centro. Decora el marco con piedras acrílicas. Pega las luces LED azules por el contorno y esconde la caja de pilas.</p>
+                `,
+                downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
             },
             {
                 id: 9,
                 category: 'modulo',
                 title: 'Módulo 9: Mariposa en Tul',
-                thumbnail: 'https://images.unsplash.com/photo-1511107548400-58d7ad70f2c2?auto=format&fit=crop&w=600&q=80',
-                videoId: 'LXb3EKWsInQ',
-                desc: '<ul><li>Tul rígido</li><li>Aplicaciones de encaje</li></ul><p>La mariposa más ligera y etérea del curso.</p>',
-                downloadLink: 'https://drive.google.com'
+                thumbnail: 'https://files.catbox.moe/rs2w66.png', // IMAGEN PERSONALIZADA
+                videoId: 'TT01aPsuQHA',
+                desc: `
+                    <h3>Lista de Materiales</h3>
+                    <ul>
+                        <li><strong>Tela de Tul:</strong> Con destellos/brillos.</li>
+                        <li><strong>Pegamento Blanco:</strong> Para dar cuerpo.</li>
+                        <li><strong>Brillo:</strong> Glitter, escarcha o Ala de Ángel.</li>
+                        <li><strong>Alambre Galvanizado:</strong> Fino y flexible (no se oxida).</li>
+                        <li><strong>Perlas:</strong> Para cuerpo y antenas.</li>
+                        <li><strong>Herramientas:</strong> Silicón, Cinta Masking Tape, Brocha, Base antiadherente.</li>
+                        <li><strong>Moldes:</strong> Alas grandes y pequeñas.</li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">Procedimiento Paso a Paso</h3>
+                    
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">1. Preparación de la Tela</h4>
+                    <p>Aplica pegamento blanco y glitter sobre la tela en una base antiadherente. Deja secar toda la noche para que endurezca.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">2. Corte de Alas</h4>
+                    <p>Marca los moldes sobre la tela preparada (recuerda voltear para el lado opuesto) y recorta las 4 piezas.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">3. Estructura de Alambre</h4>
+                    <p>Corta el alambre a la medida del borde. Fórralo envolviéndolo con tiras de tul pegadas con silicón.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">4. Montaje</h4>
+                    <p>Pega el alambre forrado al borde del revés de cada ala. Une las alas con Masking Tape y cubre la unión con una tira de tul.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">5. Cuerpo y Finalización</h4>
+                    <p>Crea el cuerpo y antenas con alambre y perlas. Pega al centro con abundante silicón y da movimiento a las alas flexibles.</p>
+                `,
+                downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
             },
-            // SECCIÓN DE MOLDES (Movido aquí y cambiada la categoría)
+            // NUEVO MÓDULO 10
+            {
+                id: 18, // ID único
+                category: 'modulo',
+                title: 'Módulo 10: MARIPOSA GIGANTE - 1 metro de alto🦋',
+                thumbnail: 'https://files.catbox.moe/qxe712.png', // IMAGEN PERSONALIZADA
+                videoId: 'https://files.catbox.moe/wsjq7v.mp4', // Video MP4 directo actualizado
+                buttonText: 'DESCARGAR MOLDE GIGANTE',
+                desc: `
+                    <div style="background-color: #2a2a2a; padding: 15px; border-left: 4px solid var(--accent-gold); border-radius: 4px;">
+                        <h4 style="color: var(--accent-gold); margin-top: 0;">🦋 ¡Proyecto Especial!</h4>
+                        <p>Este módulo es una variación espectacular de lo que ya aprendiste. Vas a crear una mariposa de <strong>1 metro de altura</strong>.</p>
+                    </div>
+
+                    <h4 style="color: var(--text-white); margin-top: 1.5rem;">📝 Instrucciones de Fabricación</h4>
+                    <p>Para fabricar esta mariposa gigante, <strong>debes seguir exactamente los mismos pasos del Módulo 1</strong>.</p>
+                    <p>La única diferencia es el tamaño de la estructura y la cantidad de materiales (alambre y luces) que aumentará proporcionalmente.</p>
+                    
+                    <ul style="margin-top: 1rem;">
+                        <li><strong>Paso 1:</strong> Descarga el molde gigante en el botón azul.</li>
+                        <li><strong>Paso 2:</strong> Imprímelo en tamaño real (puede requerir varias hojas tipo póster).</li>
+                        <li><strong>Paso 3:</strong> Sigue el procedimiento de armado del video de arriba (Módulo 1).</li>
+                    </ul>
+                `,
+                downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
+            },
+            // SECCIÓN DE MOLDES
             {
                 id: 10,
                 category: 'molde',
                 title: 'Biblioteca de Moldes PDF',
-                thumbnail: 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=600&q=80',
+                thumbnail: 'https://files.catbox.moe/zhl0g1.png', // PORTADA MOLDES ACTUALIZADA
                 videoId: null, // Null para mostrar imagen central
-                heroImage: 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=1200&q=80', // Imagen central grande
+                heroImage: 'https://files.catbox.moe/zhl0g1.png', // Imagen central grande ACTUALIZADA
                 buttonText: 'DESCARGAR TODOS LOS MOLDES', // Texto del botón
                 desc: '<p>Acceso directo a la carpeta con todos los patrones y plantillas del curso. <br><strong>Nota:</strong> Estamos actualizando con nuevos tamaños semanalmente.</p>',
                 downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
@@ -503,54 +786,242 @@
                 id: 11,
                 category: 'bono',
                 title: 'Bono 1: 10 esferas navideñas',
-                thumbnail: 'https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=600&q=80',
-                videoId: 'LXb3EKWsInQ',
-                desc: '<ul><li>Esferas de icopor</li><li>Lentejuelas</li></ul><p>Decoración clásica para el árbol.</p>',
+                thumbnail: 'https://files.catbox.moe/lv9zef.png', // IMAGEN PERSONALIZADA
+                videoId: '_gjMc5_s8YE',
+                desc: `
+                    <h3>11 Técnicas para Decorar Esferas</h3>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1.5rem;">1. Esfera Forrada con Cuerda</h4>
+                    <ul><li><strong>Materiales:</strong> Unicel, Aro, Cuerda, Silicón.</li></ul>
+                    <p>Coloca el aro, aplica silicón por secciones y envuelve la cuerda siguiendo el contorno. Sella los extremos.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1.5rem;">2. Diseño Copo de Nieve y Arena</h4>
+                    <ul><li><strong>Materiales:</strong> Esfera pintada, Pegamento, Arena blanca, Piedritas.</li></ul>
+                    <p>Traza el copo, aplica pegamento sobre el trazo, cubre con arena y decora el contorno con piedritas.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1.5rem;">3. Renovación con Perlitas Adhesivas</h4>
+                    <ul><li><strong>Materiales:</strong> Esfera antigua, Tiras de perlitas.</li></ul>
+                    <p>Usa la línea de fábrica como guía para pegar las tiras de perlitas alrededor de la esfera.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1.5rem;">4. Esfera de Papel Higiénico</h4>
+                    <ul><li><strong>Materiales:</strong> Unicel, Papel higiénico, Palito brocheta.</li></ul>
+                    <p>Haz "florecitas" con cuartos de papel e introdúcelas en el unicel con el palito hasta cubrirla. Opcional: Spray y escarcha.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1.5rem;">5. Esfera Pintada (Pino)</h4>
+                    <ul><li><strong>Materiales:</strong> Esfera, Pintura verde, Pincel.</li></ul>
+                    <p>Pinta la forma de un pino creando volumen y ramitas con el pincel.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1.5rem;">6. Paisaje Navideño Transparente</h4>
+                    <ul><li><strong>Materiales:</strong> Esfera transparente hueca, Nieve artificial, Miniaturas.</li></ul>
+                    <p>Introduce nieve y acomoda los pinitos y personajes con pinzas dentro de la esfera.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1.5rem;">7. Nieve Artificial y Escarcha</h4>
+                    <ul><li><strong>Materiales:</strong> Unicel, Nieve artificial (unicel molido), Escarcha.</li></ul>
+                    <p>Cubre con pegamento, aplica la nieve artificial y rellena huecos con escarcha para dar brillo.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1.5rem;">8. Renovación con Calcomanías</h4>
+                    <ul><li><strong>Materiales:</strong> Esfera antigua, Calcomanías de copos.</li></ul>
+                    <p>Pega calcomanías de diferentes tamaños alternándolas para equilibrar el diseño.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1.5rem;">9. Esfera con Estrellitas</h4>
+                    <ul><li><strong>Materiales:</strong> Esfera transparente, Estrellitas, Silicón.</li></ul>
+                    <p>Pega las estrellitas una por una con puntos de silicón hasta cubrir la esfera.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1.5rem;">10. Esfera con Macramé</h4>
+                    <ul><li><strong>Materiales:</strong> Esfera, Hilo, Listón.</li></ul>
+                    <p>Haz 9 nudos de macramé alrededor de la boca y une los hilos en la base inferior.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1.5rem;">11. Efecto Piedra (Pintura y Arena)</h4>
+                    <ul><li><strong>Materiales:</strong> Unicel, Pintura, Arena decorativa.</li></ul>
+                    <p>Mezcla pintura con arena y aplica varias capas sobre la esfera para crear una textura rugosa uniforme.</p>
+                `,
                 downloadLink: 'https://drive.google.com'
             },
             {
                 id: 12,
                 category: 'bono',
                 title: 'Bono 2: 10 Decoraciones Navideñas',
-                thumbnail: 'https://images.unsplash.com/photo-1543589077-47d81606c1bf?auto=format&fit=crop&w=600&q=80',
-                videoId: 'LXb3EKWsInQ',
-                desc: '<ul><li>Fieltro rojo y verde</li><li>Cintas decorativas</li></ul><p>Ideas rápidas para vender en temporada.</p>',
+                thumbnail: 'https://files.catbox.moe/evzuit.png', // IMAGEN PERSONALIZADA
+                videoId: 'https://files.catbox.moe/hernop.mp4', // Video directo MP4
+                desc: `
+                    <h3>Lista de Materiales</h3>
+                    <ul style="columns: 2; -webkit-columns: 2; -moz-columns: 2; list-style-position: inside;">
+                        <li>Cojines y Cinta Terciopelo</li>
+                        <li>Alambre delgado y Hilo</li>
+                        <li>Corona Base y Ramas Pino</li>
+                        <li>Vallas Rojas (Berries)</li>
+                        <li>Bandeja Rectangular y Oasis</li>
+                        <li>Flores Pascua y Piñas</li>
+                        <li>Guirnalda Verde y Figura</li>
+                        <li>Regalo Espejado y Hilo Rojo</li>
+                        <li>Esferas (Terciopelo/Vidrio)</li>
+                        <li>Bowl y Envases Cocina</li>
+                        <li>Nieve Artificial y Casitas</li>
+                        <li>Caja Acrílica y Luces LED</li>
+                        <li>Pecera, Piedras y Musgo</li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">Procedimiento Paso a Paso</h3>
+                    
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">1. Cojín con Lazo</h4>
+                    <p>Mide la cinta, haz un lazo de 3 lazadas sujetado con alambre y cóselo al cojín.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">2. Corona Pino y Berries</h4>
+                    <p>Inserta ramas de pino cubriendo la base y añade berries en la mitad. Rellena huecos.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">3. Cojín Transformado</h4>
+                    <p>Frunce el cojín al centro con alambre y cúbrelo con cinta de terciopelo para simular un lazo.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">4. Arreglo Rectangular</h4>
+                    <p>Usa base de oasis en bandeja. Inserta follaje largo, rellena, añade Pascuas al centro y piñas dispersas.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">5. Decoración Puerta</h4>
+                    <p>Dobla guirnalda a 60cm. Fija soldado y regalo inferior. Decora con ramas escarchadas, lazo y esferas.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">6. Centro de Mesa Bowl</h4>
+                    <p>Crea cama de ramitas en bowl y coloca esferas de terciopelo encima. Rellena huecos.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">7. Minivilla en Botes</h4>
+                    <p>Pon nieve en envases, inserta casitas/pinitos sin base y figuras pequeñas dentro.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">8. Caja Regalo Luminosa</h4>
+                    <p>Mete luces LED y esferas en caja acrílica. Cierra, pon cinta cruzada y lazo en la tapa.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">9. Guirnalda Esferas</h4>
+                    <p>Fija 3 esferas grandes. Rellena huecos con tríos de esferas pequeñas, regalos y ramas doradas.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">10. Nacimiento en Pecera</h4>
+                    <p>Coloca piedras blancas y musgo en pecera. Acomoda el nacimiento y pon sobre base circular.</p>
+                `,
                 downloadLink: 'https://drive.google.com'
             },
             {
                 id: 13,
                 category: 'bono',
                 title: 'Bono 3: Lazo gigante',
-                thumbnail: 'https://images.unsplash.com/photo-1576612874302-94c1924c56df?auto=format&fit=crop&w=600&q=80',
-                videoId: 'LXb3EKWsInQ',
-                desc: '<ul><li>Cinta de terciopelo ancha</li><li>Alambre de amarre</li></ul><p>Cómo hacer lazos perfectos para puertas.</p>',
+                thumbnail: 'https://files.catbox.moe/4w10a1.png', // IMAGEN PERSONALIZADA
+                videoId: 'b8plkrAst0k',
+                desc: `
+                    <h3>Lista de Materiales y Medidas</h3>
+                    <ul>
+                        <li><strong>Guata:</strong> 2m (gruesa). Lazo: 2x (40x150cm). Colas: 2x (27x150cm).</li>
+                        <li><strong>Tela en Seda:</strong> Lazo: 2x (40x150cm). Colas: 2x (27x150cm). Tira ajuste.</li>
+                        <li><strong>Herramientas:</strong> Máquina coser, tijeras, reglas, cinta, alfileres, aguja, hilo doble.</li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">Procedimiento Paso a Paso</h3>
+                    
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">1. Corte y Preparación</h4>
+                    <p>Corta la guata y tela para el lazo (dejando costura), la tira de ajuste y las colas (tela al doblez, guata 1cm menor).</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">2. Costura y Relleno</h4>
+                    <p>Cose la tela del lazo y tira de ajuste (derechos enfrentados), voltea y rellena con guata. Cose las colas a lo largo y en punta, voltea y rellena.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">3. Ensamblaje Final</h4>
+                    <p>Frunce el centro del lazo con aguja e hilo. Une las colas por debajo. Envuelve el centro con la tira de ajuste, cose a mano por detrás y da forma.</p>
+                `,
                 downloadLink: 'https://drive.google.com'
             },
             {
                 id: 14,
                 category: 'bono',
                 title: 'Bono 4: Cajas de navidad',
-                thumbnail: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80',
-                videoId: 'LXb3EKWsInQ',
-                desc: '<ul><li>Cartón corrugado</li><li>Papel kraft</li></ul><p>Empaques creativos para tus productos.</p>',
+                thumbnail: 'https://files.catbox.moe/lbdmwh.png', // IMAGEN PERSONALIZADA
+                videoId: 'IZa7ralrnf8',
+                desc: `
+                    <h3>Lista de Materiales</h3>
+                    <ul>
+                        <li><strong>Palitos de madera:</strong> Con hendidura (12 unidades).</li>
+                        <li><strong>Tela de tul estampada:</strong> Rollos con rayas o brillos.</li>
+                        <li><strong>Cinta decorativa:</strong> Tonos dorados, rojos, blancos.</li>
+                        <li><strong>Silicón:</strong> Caliente para pegar madera y tela.</li>
+                        <li><strong>Hilo de bordar:</strong> Para armar el lazo.</li>
+                        <li><strong>Opcional:</strong> Luces LED a pilas (20 bombillos).</li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">Procedimiento Paso a Paso</h3>
+                    
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">1. Estructura de Madera</h4>
+                    <p>Arma dos bases cuadradas con 4 palitos cada una. Únelas verticalmente con otros 4 palitos para formar el cubo.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">2. Forrado con Tul</h4>
+                    <p>Pega tul en la tapa superior. Luego forra los laterales con una tira larga pegando solo en los bordes horizontales, tensando bien.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">3. Decoración Base</h4>
+                    <p>Pega cintas en la base inferior. Puedes combinar tonos metiendo una segunda cinta por dentro.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">4. Lazo Pomposo</h4>
+                    <p>Crea un lazo base en "V". Arma varios lazos de diferentes cintas, únelos con hilo de bordar y aprieta fuerte para que esponje.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">5. Luces y Montaje</h4>
+                    <p>Pega las luces LED por debajo y por dentro. Finalmente, pega el lazo pomposo en la parte superior con silicón.</p>
+                `,
                 downloadLink: 'https://drive.google.com'
             },
             {
                 id: 15,
                 category: 'bono',
                 title: 'Bono 5: Reno de alambre',
-                thumbnail: 'https://images.unsplash.com/photo-1482517967863-00e15c9b44be?auto=format&fit=crop&w=600&q=80',
-                videoId: 'LXb3EKWsInQ',
-                desc: '<ul><li>Alambre grueso galvanizado</li><li>Luces LED cálidas</li><li>Alicates</li></ul><p>Estructura decorativa iluminada para jardín o interiores.</p>',
+                thumbnail: 'https://files.catbox.moe/kqnuz7.png', // IMAGEN PERSONALIZADA
+                videoId: 'I6fX1bl75FA',
+                desc: `
+                    <h3>Lista de Materiales</h3>
+                    <ul>
+                        <li><strong>Alambre Galvanizado:</strong> Calibre 16 (o reforzar uno delgado).</li>
+                        <li><strong>Alambre Delgado:</strong> Para uniones y espirales.</li>
+                        <li><strong>Luces LED:</strong> Serie de alambre delgado (20m recomendado).</li>
+                        <li><strong>Tul con Diamantina:</strong> Dorado o color a elección.</li>
+                        <li><strong>Herramientas:</strong> Pinzas corte/doblez, Cinta adhesiva, Silicón.</li>
+                        <li><strong>Diseño:</strong> Plantilla reno, Plumón, Hilo (medidas).</li>
+                        <li><strong>Decoración:</strong> Estambre (cuernos), Tela (ojos/nariz).</li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">Procedimiento Paso a Paso</h3>
+                    
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">1. Diseño y Plantilla</h4>
+                    <p>Dibuja la silueta en el piso o cartón. Marca líneas transversales de referencia y mide el contorno con un hilo.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">2. Esqueleto Principal</h4>
+                    <p>Corta y moldea el alambre siguiendo la plantilla (refuérzalo si es delgado). Une las siluetas laterales y la pieza central con cinta.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">3. Volumen con Círculos</h4>
+                    <p>Crea aros de alambre y fíjalos en cuello, pecho, panza y cola para dar volumen. Añade aros en las patas para estabilidad.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">4. Detalles Secundarios</h4>
+                    <p>Forma los cuernos con varios alambres y fórralos con estambre. Añade orejas y cola con alambre y fija a la estructura.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">5. Iluminación y Tul</h4>
+                    <p>Pega la serie de luces LED por todo el esqueleto. Luego, forra completamente la figura pegando el tul con silicón. Añade ojos y nariz.</p>
+                `,
                 downloadLink: 'https://drive.google.com'
             },
             {
                 id: 16,
                 category: 'bono',
                 title: 'Bono 6: Estrella de navidad',
-                thumbnail: 'https://images.unsplash.com/photo-1576919228236-a097c32a58be?auto=format&fit=crop&w=600&q=80',
-                videoId: 'LXb3EKWsInQ',
-                desc: '<ul><li>Varillas de madera o metal</li><li>Cinta dorada</li><li>Pegamento fuerte</li></ul><p>La estrella perfecta para la punta del árbol o para colgar.</p>',
+                thumbnail: 'https://files.catbox.moe/a2r17y.png', // IMAGEN PERSONALIZADA
+                videoId: 'ByN72u2h7FM',
+                desc: `
+                    <h3>Lista de Materiales</h3>
+                    <ul>
+                        <li><strong>Palitos de Bambú:</strong> 60 cm (estructura) y 35 cm (varillas 3D).</li>
+                        <li><strong>Malla o Tul:</strong> Con brillos/diamantina.</li>
+                        <li><strong>Alambre Galvanizado:</strong> Delgado para uniones.</li>
+                        <li><strong>Luces LED:</strong> Serie de alambre delgado.</li>
+                        <li><strong>Herramientas:</strong> Cinta Masking Tape, Pintura Acrílica Blanca, Silicón, Tijeras, Pinzas.</li>
+                    </ul>
+
+                    <h3 style="margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">Procedimiento Paso a Paso</h3>
+                    
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">1. Marco Exterior (Pentágono)</h4>
+                    <p>Une 5 palitos de 60cm por las puntas con alambre y refuerza con Masking Tape. Cierra formando un pentágono y dobla las uniones para formar la estrella plana.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">2. Estructura 3D</h4>
+                    <p>Corta 5 varillas de 35cm. Une un extremo de cada varilla a cada punta de la estrella y junta todos los otros extremos en el centro, elevándolos para dar volumen 3D.</p>
+
+                    <h4 style="color: var(--accent-gold); margin-top: 1rem;">3. Acabado e Iluminación</h4>
+                    <p>Pinta la estructura de blanco. Enrolla las luces LED por todas las varillas. Forra los espacios con el tul brillante pegado con silicón. Añade gancho para colgar.</p>
+                `,
                 downloadLink: 'https://drive.google.com'
             },
             // REGALOS ESPECIALES
@@ -558,9 +1029,9 @@
                 id: 17,
                 category: 'regalo',
                 title: 'Como Vender al Máximo por Whatsapp ✅',
-                thumbnail: 'https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&w=600&q=80', // Foto de Whatsapp/Celular
+                thumbnail: 'https://files.catbox.moe/30w4ut.jpg', // PORTADA WHATSAPP ACTUALIZADA
                 videoId: null, // Null indica que muestre imagen, no video
-                heroImage: 'https://images.unsplash.com/photo-1556742049-0cfed4f7a07d?auto=format&fit=crop&w=1200&q=80', // Imagen central para el "reproductor"
+                heroImage: 'https://files.catbox.moe/30w4ut.jpg', // Usamos la misma imagen para el hero
                 buttonText: 'IR AL CURSO DE WHATSAPP', // Texto personalizado del botón
                 desc: `
                     <p style="color: #25D366; font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem;">Aprende a convertir conversaciones en ventas 💚</p>
@@ -591,7 +1062,8 @@
         
         // Elementos del Player
         const videoIframe = document.getElementById('video-iframe');
-        const heroImage = document.getElementById('lesson-hero-image'); // Nuevo elemento imagen
+        const nativeVideo = document.getElementById('native-video'); // Referencia al nuevo reproductor
+        const heroImage = document.getElementById('lesson-hero-image'); 
         const videoTitle = document.getElementById('video-title');
         const videoDesc = document.getElementById('video-description');
         const downloadBtn = document.getElementById('download-btn');
@@ -650,24 +1122,38 @@
             videoDesc.innerHTML = lesson.desc;
             
             // 2. Configurar Botón Principal
-            downloadBtn.href = lesson.downloadLink;
-            // Si hay texto personalizado (buttonText), úsalo. Si no, usa el default.
-            const btnText = lesson.buttonText || "Descargar Moldes del Módulo";
-            downloadBtn.innerHTML = `<i class="fa-brands fa-google-drive"></i> ${btnText}`;
+            if (lesson.category === 'bono') {
+                downloadBtn.style.display = 'none';
+            } else {
+                downloadBtn.style.display = 'flex';
+                downloadBtn.href = lesson.downloadLink;
+                const btnText = lesson.buttonText || "Descargar Moldes del Módulo";
+                downloadBtn.innerHTML = `<i class="fa-brands fa-google-drive"></i> ${btnText}`;
+            }
 
-            // 3. Lógica Video vs Imagen
+            // 3. Lógica Video vs Imagen vs Video Nativo
+            // Reiniciar visibilidad
+            videoIframe.classList.add('hidden');
+            nativeVideo.classList.add('hidden');
+            nativeVideo.pause(); // Pausar video nativo anterior
+            heroImage.style.display = 'none';
+
             if (lesson.videoId) {
-                // Es un video
-                // CORRECCIÓN: URL simple sin parametros extra para máxima compatibilidad
-                videoIframe.src = `https://www.youtube.com/embed/${lesson.videoId}`;
-                videoIframe.classList.remove('hidden');
-                heroImage.style.display = 'none';
+                // Detectar si es MP4 (enlace directo) o YouTube
+                if (lesson.videoId.endsWith('.mp4') || lesson.videoId.includes('files.catbox.moe')) {
+                    // Es video nativo
+                    nativeVideo.src = lesson.videoId;
+                    nativeVideo.classList.remove('hidden');
+                    nativeVideo.load(); // Cargar nuevo video
+                } else {
+                    // Es YouTube
+                    videoIframe.src = `https://www.youtube.com/embed/${lesson.videoId}`;
+                    videoIframe.classList.remove('hidden');
+                }
             } else {
                 // Es un contenido sin video (como el regalo)
-                videoIframe.src = ""; // Limpiar iframe
-                videoIframe.classList.add('hidden');
-                
-                // Mostrar imagen destacada
+                videoIframe.src = ""; 
+                nativeVideo.src = "";
                 heroImage.src = lesson.heroImage || lesson.thumbnail;
                 heroImage.style.display = 'block';
             }
@@ -682,8 +1168,10 @@
 
         // Función para Regresar (Cambio a VISTA A)
         function goBack() {
-            // 1. Detener video (limpiar src)
+            // 1. Detener videos
             videoIframe.src = "";
+            nativeVideo.pause();
+            nativeVideo.src = "";
 
             // 2. Cambiar Vista
             playerView.classList.add('hidden');
@@ -694,3 +1182,5 @@
         document.addEventListener('DOMContentLoaded', renderGallery);
 
     </script>
+</body>
+</html>
