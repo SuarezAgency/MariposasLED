@@ -224,7 +224,7 @@
             display: none; /* Por defecto oculto */
         }
         
-        /* Nuevo estilo para reproductor nativo MP4 */
+        /* CORRECCIÓN: Eliminado display:none por defecto para que funcione la clase .hidden */
         .video-wrapper video {
             position: absolute;
             top: 0;
@@ -232,7 +232,6 @@
             width: 100%;
             height: 100%;
             background: black;
-            display: none;
         }
 
         /* Área de Contenido del Video */
@@ -334,7 +333,7 @@
     <header>
         <!-- BANNER PRINCIPAL -->
         <div class="banner-container">
-            <img src="https://files.catbox.moe/64mzx6.png" alt="Banner Curso Mariposas LED" class="main-banner">
+            <img src="https://files.catbox.moe/rr63w1.png" alt="Banner Curso Mariposas LED" class="main-banner">
         </div>
         
         <h1><i class="fa-solid fa-wand-magic-sparkles"></i> Curso de Mariposas LED</h1>
@@ -381,8 +380,8 @@
         <div class="video-wrapper">
             <!-- Reproductor Youtube -->
             <iframe id="video-iframe" src="" title="Video player" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <!-- Reproductor Nativo (MP4) -->
-            <video id="native-video" controls></video>
+            <!-- Reproductor Nativo (MP4) - CORRECCIÓN: Agregada clase hidden por defecto -->
+            <video id="native-video" class="hidden" controls></video>
             <!-- Imagen alternativa para lecciones sin video (Regalos) -->
             <img id="lesson-hero-image" class="hero-image" src="" alt="Imagen destacada">
         </div>
@@ -835,7 +834,7 @@
                     <ul><li><strong>Materiales:</strong> Unicel, Pintura, Arena decorativa.</li></ul>
                     <p>Mezcla pintura con arena y aplica varias capas sobre la esfera para crear una textura rugosa uniforme.</p>
                 `,
-                downloadLink: 'https://drive.google.com'
+                downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
             },
             {
                 id: 12,
@@ -893,7 +892,7 @@
                     <h4 style="color: var(--accent-gold); margin-top: 1rem;">10. Nacimiento en Pecera</h4>
                     <p>Coloca piedras blancas y musgo en pecera. Acomoda el nacimiento y pon sobre base circular.</p>
                 `,
-                downloadLink: 'https://drive.google.com'
+                downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
             },
             {
                 id: 13,
@@ -920,7 +919,7 @@
                     <h4 style="color: var(--accent-gold); margin-top: 1rem;">3. Ensamblaje Final</h4>
                     <p>Frunce el centro del lazo con aguja e hilo. Une las colas por debajo. Envuelve el centro con la tira de ajuste, cose a mano por detrás y da forma.</p>
                 `,
-                downloadLink: 'https://drive.google.com'
+                downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
             },
             {
                 id: 14,
@@ -956,7 +955,7 @@
                     <h4 style="color: var(--accent-gold); margin-top: 1rem;">5. Luces y Montaje</h4>
                     <p>Pega las luces LED por debajo y por dentro. Finalmente, pega el lazo pomposo en la parte superior con silicón.</p>
                 `,
-                downloadLink: 'https://drive.google.com'
+                downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
             },
             {
                 id: 15,
@@ -993,7 +992,7 @@
                     <h4 style="color: var(--accent-gold); margin-top: 1rem;">5. Iluminación y Tul</h4>
                     <p>Pega la serie de luces LED por todo el esqueleto. Luego, forra completamente la figura pegando el tul con silicón. Añade ojos y nariz.</p>
                 `,
-                downloadLink: 'https://drive.google.com'
+                downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
             },
             {
                 id: 16,
@@ -1022,7 +1021,7 @@
                     <h4 style="color: var(--accent-gold); margin-top: 1rem;">3. Acabado e Iluminación</h4>
                     <p>Pinta la estructura de blanco. Enrolla las luces LED por todas las varillas. Forra los espacios con el tul brillante pegado con silicón. Añade gancho para colgar.</p>
                 `,
-                downloadLink: 'https://drive.google.com'
+                downloadLink: 'https://drive.google.com/drive/folders/10jGmym_IDVQa7WGxAQZrjf04JAN6LaXV?usp=drive_link'
             },
             // REGALOS ESPECIALES
             {
@@ -1134,6 +1133,7 @@
             // 3. Lógica Video vs Imagen vs Video Nativo
             // Reiniciar visibilidad
             videoIframe.classList.add('hidden');
+            videoIframe.src = ""; // IMPORTANTE: Detener video anterior de youtube para que no suene de fondo
             nativeVideo.classList.add('hidden');
             nativeVideo.pause(); // Pausar video nativo anterior
             heroImage.style.display = 'none';
@@ -1145,6 +1145,8 @@
                     nativeVideo.src = lesson.videoId;
                     nativeVideo.classList.remove('hidden');
                     nativeVideo.load(); // Cargar nuevo video
+                    // Intentar reproducir automáticamente (puede ser bloqueado por el navegador sin interacción previa)
+                    nativeVideo.play().catch(e => console.log("Autoplay bloqueado por navegador, usuario debe dar play"));
                 } else {
                     // Es YouTube
                     videoIframe.src = `https://www.youtube.com/embed/${lesson.videoId}`;
